@@ -16,6 +16,7 @@
     "@babel/generator": "^7.21.1",
     "@babel/parser": "^7.21.1",
     "@babel/traverse": "^7.21.0",
-    "@babel/types": "^7.21.0"
+    "@babel/types": "^7.21.0",
+    "stats-webpack-plugin": "^0.7.0"
   }
 }
