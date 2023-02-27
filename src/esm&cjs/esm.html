@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>esm script</title>
+</head>
+
+<body>
+  <script src="./esm/index.js" type="module"></script>
+  <script type="module">
+    console.log(this);
+    import { log } from './esm/log.js'
+    log('123')
+  </script>
+  <script>
+    console.log(this);
+
+  </script>
+  <script type="module">
+
+    const esm = await import('https://cdn.jsdelivr.net/npm/array-uniq/index.js')
+    console.log(Object.prototype.toString.call(esm)); // [object Module]
+    const arrUniq = esm.default
+    console.log(arrUniq([1, 2, 3, 444, 4, 4, 4]));
+  </script>
+</body>
+
+</html>

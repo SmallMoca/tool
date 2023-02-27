@@ -1,7 +1,7 @@
 'use strict';
 var __webpack_modules__ = {
   3: (__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-    __webpack_require__.r(__webpack_exports__);
+    __webpack_require__.r(__webpack_exports__); // 标记为 esm 类型
     __webpack_require__.d(__webpack_exports__, {
       changeCount: () => /* binding */ changeCount,
       count: () => /* binding */ count,
