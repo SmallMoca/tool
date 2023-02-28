@@ -3,7 +3,7 @@
 /******/ // The module cache
 /******/ var __webpack_module_cache__ = {};
 /******/
-/******/ // 模块加载器方法
+/******/ // The require function
 /******/ function __webpack_require__(moduleId) {
   /******/ // Check if module is in cache
   /******/ var cachedModule = __webpack_module_cache__[moduleId];
@@ -31,11 +31,11 @@
   /******/
 }
 /******/
-/******/ // 保存全部模块对象的 __webpack_modules__ 放到 require.m属性上
+/******/ // 管理全部模块的变量挂载到 __webpack_require_.m
 /******/ __webpack_require__.m = __webpack_modules__;
 /******/
 /************************************************************************/
-/******/ /* esm 导入属性 使用 Object.defineProperty 方法挂载到 module.exports 上 */
+/******/ /* webpack/runtime/define property getters */
 /******/ (() => {
   /******/ // define getter functions for harmony exports
   /******/ __webpack_require__.d = (exports, definition) => {
@@ -57,30 +57,28 @@
   /******/
 })();
 /******/
-/******/ /* webpack/runtime/ensure chunk */
-/******/ (() => {
+(() => {
   /******/ __webpack_require__.f = {};
-  /******/ // This file contains only the entry chunk.
-  /******/ // The chunk loading function for additional chunks
   /******/ __webpack_require__.e = (chunkId) => {
     /******/ return Promise.all(
       Object.keys(__webpack_require__.f).reduce((promises, key) => {
+        // TODO __webpack_require__.f.j
+        // 实际上是调用 __webpack_require__f.j函数
         /******/ __webpack_require__.f[key](chunkId, promises);
         /******/ return promises;
         /******/
       }, [])
     );
-    /******/
   };
-  /******/
 })();
 /******/
-// 根据chunkId 返回被引入文件的文件名
 /******/ /* webpack/runtime/get javascript chunk filename */
 /******/ (() => {
   /******/ // This function allow to reference async chunks
+  // 根据 chunkId得到chunk 的相关资源地址
   /******/ __webpack_require__.u = (chunkId) => {
     /******/ // return url for filenames based on template
+    //TODO 记住，这里的 chunk 脚本的地址被写死，意味着每当 chunk 的文件名发生改变，运行时代码也会发生改变
     /******/ return (
       '' + chunkId + '.' + chunkId + '.chunk.' + '0d65a91fec4eeafa' + '.js'
     );
@@ -89,8 +87,7 @@
   /******/
 })();
 /******/
-// 全局window 对象
-/******/ /* webpack/runtime/global */
+// 封装全局变量
 /******/ (() => {
   /******/ __webpack_require__.g = (function () {
     /******/ if (typeof globalThis === 'object') return globalThis;
@@ -113,17 +110,21 @@
   /******/
 })();
 /******/
-// 运行时script 脚本资源加载方法
 /******/ /* webpack/runtime/load script */
+// 这里是webpack运行时 加载chunk 资源的脚本
 /******/ (() => {
   /******/ var inProgress = {};
   /******/ var dataWebpackPrefix = 'tool:';
   /******/ // loadScript function to load a script via script tag
+
   /******/ __webpack_require__.l = (url, done, key, chunkId) => {
+    debugger;
+    // done 为脚本完成时的回调函数
     /******/ if (inProgress[url]) {
       inProgress[url].push(done);
       return;
     }
+    // 使用script标签加载chunk js 脚本
     /******/ var script, needAttach;
     /******/ if (key !== undefined) {
       /******/ var scripts = document.getElementsByTagName('script');
@@ -146,6 +147,7 @@
       /******/
       /******/ script.charset = 'utf-8';
       /******/ script.timeout = 120;
+      // nonce，用以配置 CSP 策略，见 https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
       /******/ if (__webpack_require__.nc) {
         /******/ script.setAttribute('nonce', __webpack_require__.nc);
         /******/
@@ -154,15 +156,16 @@
       /******/ script.src = url;
       /******/
     }
+    // 设置chunk 加载完成时的回调回调
     /******/ inProgress[url] = [done];
     /******/ var onScriptComplete = (prev, event) => {
-      debugger;
       /******/ // avoid mem leaks in IE.
       /******/ script.onerror = script.onload = null;
       /******/ clearTimeout(timeout);
       /******/ var doneFns = inProgress[url];
       /******/ delete inProgress[url];
       /******/ script.parentNode && script.parentNode.removeChild(script);
+      // 脚本加载结束后，回调 done 函数，并传递 event 参数s
       /******/ doneFns && doneFns.forEach((fn) => fn(event));
       /******/ if (prev) return prev(event);
       /******/
@@ -233,7 +236,8 @@
   /******/ // object to store loaded and loading chunks
   /******/ // undefined = chunk not loaded, null = chunk preloaded/prefetched
   /******/ // [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
-  /******/ var installedChunks = {
+
+  var installedChunks = {
     /******/ 0: 0,
     /******/
   };
@@ -270,6 +274,7 @@
           /******/ // create error before stack unwound to get useful stacktrace later
           /******/ var error = new Error();
           /******/ var loadingEnded = (event) => {
+            debugger;
             /******/ if (__webpack_require__.o(installedChunks, chunkId)) {
               /******/ installedChunkData = installedChunks[chunkId];
               /******/ if (installedChunkData !== 0)
@@ -322,50 +327,46 @@
   /******/
   /******/ // no on chunks loaded
   /******/
-  /******/ // install a JSONP callback for chunk loading
-  /******/ var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-    /******/ var [chunkIds, moreModules, runtime] = data;
-    /******/ // add "moreModules" to the modules object,
-    /******/ // then flag all "chunkIds" as loaded and fire callback
-    /******/ var moduleId,
+  // jsonp 回调 给加载的 async chunk 调用,传递模块对象
+  var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+    debugger;
+    var [chunkIds, moreModules, runtime] = data;
+
+    var moduleId,
       chunkId,
       i = 0;
-    /******/ if (chunkIds.some((id) => installedChunks[id] !== 0)) {
-      /******/ for (moduleId in moreModules) {
-        /******/ if (__webpack_require__.o(moreModules, moduleId)) {
-          /******/ __webpack_require__.m[moduleId] = moreModules[moduleId];
-          /******/
+    if (chunkIds.some((id) => installedChunks[id] !== 0)) {
+      for (moduleId in moreModules) {
+        if (__webpack_require__.o(moreModules, moduleId)) {
+          // 加载的模块收集到 __webpack_modules__
+          __webpack_require__.m[moduleId] = moreModules[moduleId];
         }
-        /******/
       }
-      /******/ if (runtime) var result = runtime(__webpack_require__);
-      /******/
+      if (runtime) var result = runtime(__webpack_require__);
     }
-    /******/ if (parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-    /******/ for (; i < chunkIds.length; i++) {
-      /******/ chunkId = chunkIds[i];
-      /******/ if (
+    //
+    if (parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+    for (; i < chunkIds.length; i++) {
+      chunkId = chunkIds[i];
+      if (
         __webpack_require__.o(installedChunks, chunkId) &&
         installedChunks[chunkId]
       ) {
-        /******/ installedChunks[chunkId][0]();
-        /******/
+        // 执行相关async chunk promise 的resolve
+        installedChunks[chunkId][0]();
       }
-      /******/ installedChunks[chunkId] = 0;
-      /******/
+      // 标记 该async chunk是加载成功的
+      installedChunks[chunkId] = 0;
     }
-    /******/
-    /******/
   };
   /******/
-  /******/ var chunkLoadingGlobal = (self['webpackChunktool'] =
+  var chunkLoadingGlobal = (self['webpackChunktool'] =
     self['webpackChunktool'] || []);
-  /******/ chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-  /******/ chunkLoadingGlobal.push = webpackJsonpCallback.bind(
+  chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+  chunkLoadingGlobal.push = webpackJsonpCallback.bind(
     null,
     chunkLoadingGlobal.push.bind(chunkLoadingGlobal)
   );
-  /******/
 })();
 /******/
 /************************************************************************/
@@ -376,6 +377,7 @@ var __webpack_exports__ = {};
 /*! unknown exports (runtime-defined) */
 /*! runtime requirements: __webpack_require__.e, __webpack_require__, __webpack_require__.* */
 // index.js 内容
+debugger;
 __webpack_require__
   .e(/*! import() */ 1)
   .then(__webpack_require__.bind(__webpack_require__, /*! ./sum */ 1))

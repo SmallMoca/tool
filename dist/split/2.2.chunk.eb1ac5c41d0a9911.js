@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunktool"] = self["webpackChunktool"] || []).push([[1],[
+(self["webpackChunktool"] = self["webpackChunktool"] || []).push([[2],[
 /* 0 */,
 /* 1 */
 /*!**********************************!*\
@@ -16,7 +16,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 // sum.js 内容
-const sum = (...args) => args.reduce((x, y) => x + y, 0);
+const sum = (...args) => args.reduce((x, y) => x + y, 1);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (sum);
 
 

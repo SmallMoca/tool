@@ -12,6 +12,13 @@ const compiler = webpack({
     hashFunction: 'xxhash64',
     filename: 'main.[id].[contenthash].js',
     chunkFilename: '[name].[id].chunk.[contenthash].js',
+    // chunkFormat: 'module',
+    // chunkLoading: 'import',
+  },
+  optimization: {
+    runtimeChunk: {
+      name: 'runtime',
+    },
   },
 });
 compiler.run((err) => {
