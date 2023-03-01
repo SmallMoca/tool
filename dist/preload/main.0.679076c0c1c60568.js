@@ -28,6 +28,48 @@
 /******/ __webpack_require__.m = __webpack_modules__;
 /******/ 
 /************************************************************************/
+/******/ /* webpack/runtime/chunk loaded */
+/******/ (() => {
+/******/ 	var deferred = [];
+/******/ 	__webpack_require__.O = (result, chunkIds, fn, priority) => {
+/******/ 		if(chunkIds) {
+/******/ 			priority = priority || 0;
+/******/ 			for(var i = deferred.length; i > 0 && deferred[i - 1][2] > priority; i--) deferred[i] = deferred[i - 1];
+/******/ 			deferred[i] = [chunkIds, fn, priority];
+/******/ 			return;
+/******/ 		}
+/******/ 		var notFulfilled = Infinity;
+/******/ 		for (var i = 0; i < deferred.length; i++) {
+/******/ 			var [chunkIds, fn, priority] = deferred[i];
+/******/ 			var fulfilled = true;
+/******/ 			for (var j = 0; j < chunkIds.length; j++) {
+/******/ 				if ((priority & 1 === 0 || notFulfilled >= priority) && Object.keys(__webpack_require__.O).every((key) => (__webpack_require__.O[key](chunkIds[j])))) {
+/******/ 					chunkIds.splice(j--, 1);
+/******/ 				} else {
+/******/ 					fulfilled = false;
+/******/ 					if(priority < notFulfilled) notFulfilled = priority;
+/******/ 				}
+/******/ 			}
+/******/ 			if(fulfilled) {
+/******/ 				deferred.splice(i--, 1)
+/******/ 				var r = fn();
+/******/ 				if (r !== undefined) result = r;
+/******/ 			}
+/******/ 		}
+/******/ 		return result;
+/******/ 	};
+/******/ })();
+/******/ 
+/******/ /* webpack/runtime/chunk prefetch function */
+/******/ (() => {
+/******/ 	__webpack_require__.F = {};
+/******/ 	__webpack_require__.E = (chunkId) => {
+/******/ 		Object.keys(__webpack_require__.F).map((key) => {
+/******/ 			__webpack_require__.F[key](chunkId);
+/******/ 		});
+/******/ 	}
+/******/ })();
+/******/ 
 /******/ /* webpack/runtime/define property getters */
 /******/ (() => {
 /******/ 	// define getter functions for harmony exports
@@ -58,7 +100,7 @@
 /******/ 	// This function allow to reference async chunks
 /******/ 	__webpack_require__.u = (chunkId) => {
 /******/ 		// return url for filenames based on template
-/******/ 		return "" + chunkId + "." + chunkId + ".chunk." + {"1":"e0c5df4920a270a3","2":"b582ad235ad30a2f"}[chunkId] + ".js";
+/******/ 		return "" + (chunkId === 1 ? "sum" : chunkId) + "." + chunkId + ".chunk." + {"1":"e0c5df4920a270a3","2":"b582ad235ad30a2f"}[chunkId] + ".js";
 /******/ 	};
 /******/ })();
 /******/ 
@@ -205,7 +247,20 @@
 /******/ 			}
 /******/ 	};
 /******/ 	
-/******/ 	// no prefetching
+/******/ 	__webpack_require__.F.j = (chunkId) => {
+/******/ 		if((!__webpack_require__.o(installedChunks, chunkId) || installedChunks[chunkId] === undefined) && true) {
+/******/ 			installedChunks[chunkId] = null;
+/******/ 			var link = document.createElement('link');
+/******/ 	
+/******/ 			if (__webpack_require__.nc) {
+/******/ 				link.setAttribute("nonce", __webpack_require__.nc);
+/******/ 			}
+/******/ 			link.rel = "prefetch";
+/******/ 			link.as = "script";
+/******/ 			link.href = __webpack_require__.p + __webpack_require__.u(chunkId);
+/******/ 			document.head.appendChild(link);
+/******/ 		}
+/******/ 	};
 /******/ 	
 /******/ 	// no preloaded
 /******/ 	
@@ -213,7 +268,7 @@
 /******/ 	
 /******/ 	// no HMR manifest
 /******/ 	
-/******/ 	// no on chunks loaded
+/******/ 	__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
 /******/ 	
 /******/ 	// install a JSONP callback for chunk loading
 /******/ 	var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
@@ -237,12 +292,19 @@
 /******/ 			}
 /******/ 			installedChunks[chunkId] = 0;
 /******/ 		}
-/******/ 	
+/******/ 		return __webpack_require__.O(result);
 /******/ 	}
 /******/ 	
 /******/ 	var chunkLoadingGlobal = self["webpackChunktool"] = self["webpackChunktool"] || [];
 /******/ 	chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 	chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ })();
+/******/ 
+/******/ /* webpack/runtime/startup prefetch */
+/******/ (() => {
+/******/ 	__webpack_require__.O(0, [0], () => {
+/******/ 		__webpack_require__.E(1);
+/******/ 	}, 5);
 /******/ })();
 /******/ 
 /************************************************************************/
@@ -255,8 +317,9 @@ var __webpack_exports__ = {};
 // index.js 内容
 
 setTimeout(() => {
-  __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(__webpack_require__, /*! ./sum */ 1)).then((m) => {
+  __webpack_require__.e(/*! import() | sum */ 1).then(__webpack_require__.bind(__webpack_require__, /*! ./sum */ 1)).then((m) => {
     console.log(m.default(3, 4));
   });
 }, 3000);
 
+__webpack_exports__ = __webpack_require__.O(__webpack_exports__);

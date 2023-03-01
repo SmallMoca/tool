@@ -17,3 +17,41 @@
 ### prefetch 预判加载
 
 他的作用是浏览器未来可能会使用到某个资源，浏览器在空闲时再去加载对应资源
+
+## 1. 在 webpack 中有哪些魔法注释
+
+`/* webpackPrefetch: true */`
+`/* webpackPreLoad: true */`
+`/* webpackChunkName: 'sum' */`
+
+## 2. 在 webpack 中如何实现 prefetch 的
+
+- 使用`/* webpackPrefetch: true */` 标记 import('X') 动态模块 进行 chunk prefetch
+
+## 3. 阅读 prefetch 后的运行时代码进行理解##
+
+使用 createElement 创建 link 标签 设置 rel 属性 为 prefetch 插入到 html head 中
+
+```js
+/******/ __webpack_require__.F.j = (chunkId) => {
+  /******/ if (
+    (!__webpack_require__.o(installedChunks, chunkId) ||
+      installedChunks[chunkId] === undefined) &&
+    true
+  ) {
+    /******/ installedChunks[chunkId] = null;
+    /******/ var link = document.createElement('link');
+    /******/
+    /******/ if (__webpack_require__.nc) {
+      /******/ link.setAttribute('nonce', __webpack_require__.nc);
+      /******/
+    }
+    /******/ link.rel = 'prefetch';
+    /******/ link.as = 'script';
+    /******/ link.href = __webpack_require__.p + __webpack_require__.u(chunkId);
+    /******/ document.head.appendChild(link);
+    /******/
+  }
+  /******/
+};
+```
