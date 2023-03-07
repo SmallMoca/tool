@@ -1,9 +1,8 @@
 # magic-commnet 魔方注释
 
-## 页面资源预加载
+## 页面资源预加载 preload&prefetch
 
-我们在页面中要使用 图片 css js 等这些资源 要等待资源下载成功后再执行，我们可以通过让资源预加载，等资源需要使用的时候直接从缓存中取就好了，不必等待网络下载资源的开销
-提高首屏响应时间
+作用：辅助浏览器优化资源加载顺序和时机，提升页面性能
 
 ### preload 提前加载
 
@@ -55,3 +54,50 @@
   /******/
 };
 ```
+
+## Preload 和 Prefetch 的具体实践
+
+### 案例 1
+
+打开弹窗显示一张图片，在弹窗打开的同时去加载图片，这时候如果图片较大或者网络卡顿的情况下明显看见有一个缓慢加载的过程。
+
+在 index.html 硬编码 prefetch 这个资源
+
+```pug
+link(rel="prefetch" as="image"
+href="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7bc218672a02446d9fc6d132589d071d~tplv-k3u1fbpfcp-zoom-crop-mark:3024:3024:3024:1702.png")
+```
+
+or
+
+```html
+<link
+  rel="prefetch"
+  as="image"
+  href="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7bc218672a02446d9fc6d132589d071d~tplv-k3u1fbpfcp-zoom-crop-mark:3024:3024:3024:1702.png"
+/>
+```
+
+我们进入页面再打开这个弹窗，图片是第一时间显示
+newwork 查看 我们点击弹窗的时候 ，图片资源是从 prefetch catch 中获取的，
+
+这种硬编码 在我们实际开发中不方便，很多时候我们的图片资源名 是我们构建生成的。
+
+其他方案
+手动 new Image().src='X' 在页面页面渲染的时候去加载图片 ，点击时弹窗的时候 图片就拿缓存的图片资源
+
+```js
+const prefetchImage = new Image();
+React.useEffect(() => {
+  prefetchImage.src = require('../test.png');
+}, []);
+```
+
+使用`preload-webpack-plugin` 插件
+
+其他案例
+
+- 弹窗 或者是 子页含有 echarts 图表 chunk 的资源 使用 `webpackPrefetch` 优化加载 echarts 资源
+- prefetch 货值 preload 优化加载字体资源，有时候我们要使用特殊字体，打开页面 明显看见抖动，可使用这个方式优化加载字体资源的时机
+
+总结：合理利用 prefetch /preload 不合理使用有反作用 ，影响我们的网络带宽
