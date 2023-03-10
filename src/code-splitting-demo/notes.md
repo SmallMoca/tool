@@ -9,6 +9,10 @@
 
 ## `splitChunksPlugin`
 
+`splitChunksPlugin` 的一些能力
+
+-
+
 webpack 实现代码分离的一些方式
 
 - 将公用模块 单独入口引入，要使用该公用模块的入口 配置 dependOn 共享这个公共模块
