@@ -32,5 +32,3 @@ const addTopLevelFrameworkPaths = (packageName) => {
 for (const packageName of ['react', 'react-dom']) {
   addTopLevelFrameworkPaths(packageName);
 }
-
-console.log(topLevelFrameworkPaths);
