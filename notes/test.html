@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>跑动的马</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="myCanvas"></canvas>
+  <script>
+    // 获取 canvas 元素和绘图环境
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+
+    // 定义马的初始位置和速度
+    var x = 10;
+    var y = 100;
+    var speed = 5;
+
+    // 加载马的图片
+    var horseImage = new Image();
+    horseImage.src =
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Horse_Silhouette.svg/1280px-Horse_Silhouette.svg.png";
+
+    // 绘制马的函数
+    function draw() {
+      // 清空 canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // 绘制马的图片
+      ctx.drawImage(horseImage, x, y, 100, 100);
+
+      // 让马向前移动
+      x += speed;
+
+      // 当马的位置到达 canvas 的右边界时，将马的位置重置到左边界
+      if (x > canvas.width) {
+        x = -100;
+      }
+
+      // 每隔 10 毫秒重绘一次
+      setTimeout(draw, 10);
+    }
+
+    // 调用绘制函数
+    draw();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,1 @@
+{"version":3,"file":"1.main.bundle.js","mappings":";;;;;;;;;;AAAA,IAAkB,IAGjB;AAHD,WAAkB,IAAI;IACpB,uBAAe;IACf,wBAAgB;AAClB,CAAC,EAHiB,IAAI,KAAJ,IAAI,QAGrB","sources":["webpack:///./src/foo.ts"],"sourcesContent":["export const enum Item {\n  A = '333333333',\n  B = '4535dddsss',\n}\n"],"names":[],"sourceRoot":""}
