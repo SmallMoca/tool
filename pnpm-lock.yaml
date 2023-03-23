@@ -10,6 +10,7 @@ specifiers:
   js-yaml: ^4.1.0
   lodash: ^4.17.21
   stats-webpack-plugin: ^0.7.0
+  tapable: ^2.2.1
   ts-loader: ^9.4.2
   typescript: ^4.9.5
   webpack: ^5.75.0
@@ -18,6 +19,7 @@ specifiers:
 
 dependencies:
   lodash: 4.17.21
+  tapable: 2.2.1
   webpack: 5.75.0
 
 devDependencies:
