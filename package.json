@@ -20,6 +20,7 @@
     "@babel/traverse": "^7.21.0",
     "@babel/types": "^7.21.0",
     "babel-loader": "^9.1.2",
+    "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.5.0",
     "js-yaml": "^4.1.0",
     "loader-utils": "^3.2.1",

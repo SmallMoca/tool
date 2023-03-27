@@ -21,8 +21,6 @@ const optionsSchema = {
 };
 const { validate } = require('schema-utils');
 const { interpolateName } = require('loader-utils');
-const fs = require('fs');
-
 const path = require('path');
 function loader(content) {
   const options = this.getOptions();
@@ -31,9 +29,6 @@ function loader(content) {
     name: 'File Loader', // loader的名称，用于错误提示
     baseDataPath: 'options', //  options 对象的基础路径，用于错误提示
   });
-
-  const filePath = this.resourcePath;
-  const fileContent = fs.readFileSync(filePath);
 
   const context = options.context || this.rootContext;
   const name = options.name || '[contenthash].[ext]';
@@ -67,7 +62,7 @@ function loader(content) {
   }
   const assetInfo = {};
   assetInfo.immutable = true;
-  this.emitFile(outputPath, fileContent);
+  this.emitFile(outputPath, content, null);
 
   publicPath = JSON.stringify(publicPath);
   const esModule =
