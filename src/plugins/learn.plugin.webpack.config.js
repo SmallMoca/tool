@@ -2,12 +2,14 @@
  * @Author: yuzhicheng
  * @Date: 2023-03-15 11:58:53
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-03-27 15:29:59
+ * @Last Modified time: 2023-03-27 18:35:30
  */
 const WebpackBar = require('webpackbar');
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('./plugin/html-webpack-plugin');
+// const HtmlWebpackPlugin = require('./plugin/html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
 const webpackDevServer = require('webpack-dev-server');
 const SomePlugin = require('./plugin/some-plugin');
 
@@ -29,6 +31,19 @@ const compiler = webpack({
   },
   module: {
     rules: [
+      // {
+      //   test: /\.(png|jpg|svg)$/,
+      //   type: 'asset',
+      // },
+      {
+        test: /\.jpg?$/,
+        use: [
+          {
+            loader: path.resolve(__dirname, './loader/file-loader.js'),
+          },
+        ],
+        type: 'javascript/auto',
+      },
       {
         test: /\.ts?$/,
         use: [
@@ -59,7 +74,6 @@ const compiler = webpack({
   resolve: {
     extensions: ['.ts', '.js'],
   },
-  devtool: 'source-map',
 });
 
 compiler.run();
