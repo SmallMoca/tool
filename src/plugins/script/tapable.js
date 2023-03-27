@@ -163,3 +163,7 @@ sleepAsyncSeries.tapPromise('async-promise', (...args) => {
 });
 // sleepAsyncSeries.callAsync();
 sleepAsyncSeries.promise();
+
+// hook动态编译
+// tapable hook 的同步 异步 bail waterfall 等回掉规则都是tapable 根据hook 类型 参数 回调队列等参数，调用
+// new Function 语句动态拼装出一段控制执行流程的js代码控制的

@@ -2,12 +2,12 @@
  * @Author: yuzhicheng
  * @Date: 2023-03-15 11:58:53
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-03-23 18:31:36
+ * @Last Modified time: 2023-03-27 15:29:59
  */
 const WebpackBar = require('webpackbar');
 const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('./plugin/html-webpack-plugin');
 const webpackDevServer = require('webpack-dev-server');
 const SomePlugin = require('./plugin/some-plugin');
 
@@ -18,6 +18,14 @@ const compiler = webpack({
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.bundle.js',
     clean: true,
+    hashFunction: 'xxhash64',
+    filename: 'main.[id].[contenthash].js',
+    chunkFilename: '[name].[id].chunk.[contenthash].js',
+  },
+  optimization: {
+    runtimeChunk: {
+      name: 'runtime',
+    },
   },
   module: {
     rules: [
@@ -43,7 +51,7 @@ const compiler = webpack({
       basic: true,
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './index.html'),
+      title: '哈哈哈 ，我写的htmlplugin',
       // title: 'code splitting',
     }),
     new SomePlugin(),

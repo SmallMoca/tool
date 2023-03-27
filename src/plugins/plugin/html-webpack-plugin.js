@@ -1,17 +1,8 @@
-# html 处理作业
-
-1. 对比 rollup/webpack 开发 html plugin，总结二者异同
-   rollup/webpack 的本质都是使用 各自提供的钩子，在特定的时机去拿到入口文件的路径写入到 html 模板中
-   差异是 webpack 本质一个类，提供的 hook 比较多，我们使用的时候需要各种组合，拿到我们一些信息， rollup 插件更像是一个方法，返回一个配置信息，使用起来比较简单，也更容易拿到我们需要的配置信息。
-
-2. 模拟实现 html-webpack-plugin
-
-```js
 /*
  * @Author: yuzhicheng
  * @Date: 2023-03-27 14:36:34
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-03-27 16:20:42
+ * @Last Modified time: 2023-03-27 16:38:54
  */
 
 const { Compilation, Compiler } = require('webpack');
@@ -102,11 +93,15 @@ class HtmlWebpackPlugin {
           (_compilationAssets, cb) => {
             const publicPath = getPublicPath(compilation);
             const entryNames = Array.from(compilation.entrypoints.keys());
-            const assets = entryNames
-              .map((entryName) =>
-                compilation.entrypoints.get(entryName).getFiles()
-              )
-              .flat();
+            const files = entryNames.map((entryName) => {
+              compilation.entrypoints.get(entryName).getFiles();
+              // const runtimeInfo = compilation.entrypoints
+              //   .get(entryName)
+              //   .getRuntimeChunk();
+            });
+
+            const assets = files.flat();
+
             const scripts = assets.map((src) => publicPath + src);
             const content = html({
               title: this.options.title || 'Demo',
@@ -127,11 +122,3 @@ class HtmlWebpackPlugin {
 }
 
 module.exports = HtmlWebpackPlugin;
-```
-
-3. 如何注入变量到 html 中
-   使用 html-webpack-plugin 的时候配置 templateParameters 参数
-
-4. 如何将 webpack.runtime.js 注入到 html 中
-   在 webpack-htlm-plugin 的实践中,是通过 `compilation.entrypoints.get(entryName).getFiles()`根据 entryName 拿到入口点生成的所有文件路径，如果我们配置 `optimization.runtimeChunk` 也会通过 getFiles 拿到相关路径信息，写入到 html 中，
-   同时我们也可以 entrypoint.getRuntimeChunk() 拿到单独的 runtimeChunk 的信息
