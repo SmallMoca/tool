@@ -2,7 +2,7 @@
  * @Author: yuzhicheng
  * @Date: 2023-03-21 09:42:40
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-03-23 18:32:04
+ * @Last Modified time: 2023-03-31 16:38:04
  * @Title 结构化类型系统
  */
 
@@ -192,7 +192,7 @@ type ReverseKeyValueResult1 = ReverseKeyValue<{ key: 'value'; age: '123' }>; // 
 type Reverse<T extends Record<keyof T, keyof any>> = {
   // 这里 用value 当key
   [V in T[keyof T]]: {
-    [TempK in keyof T]: T[TempK] extends V ? T[TempK] : never;
+    [TempK in keyof T]: T[TempK] extends V ? TempK : never;
   }[keyof T];
 };
 
@@ -202,7 +202,7 @@ type Reverse2<T extends Record<keyof T, keyof any>> = T extends Record<
 >
   ? {
       [VK in V & keyof any]: {
-        [TK in K]: T[TK] extends VK ? T[TK] : never;
+        [TK in K]: T[TK] extends VK ? TK : never;
       }[K];
     }
   : never;
@@ -213,7 +213,7 @@ type Base = { name: 'value'; age: '123' };
 
 type VS = Base extends Record<string, infer V> ? V : never;
 
-type T2 = Reverse<{ name: 'value'; age: '123' }>;
+type T2 = Reverse<{ name: 'value'; age: '123'; info: 'age' }>;
 type TA = Reverse2<{ name: 'value'; age: '123' }>;
 
 type PATTERN<T> = {

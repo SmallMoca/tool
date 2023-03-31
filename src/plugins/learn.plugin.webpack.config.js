@@ -2,7 +2,7 @@
  * @Author: yuzhicheng
  * @Date: 2023-03-15 11:58:53
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-03-27 18:52:13
+ * @Last Modified time: 2023-03-28 17:13:18
  */
 const WebpackBar = require('webpackbar');
 const webpack = require('webpack');
@@ -40,6 +40,10 @@ const compiler = webpack({
         use: [
           {
             loader: path.resolve(__dirname, './loader/file-loader.js'),
+            // loader: 'file-loader',
+            options: {
+              outputPath: 'image',
+            },
           },
         ],
         type: 'javascript/auto',
@@ -76,21 +80,21 @@ const compiler = webpack({
   },
 });
 
-compiler.run();
+// compiler.run();
 
-// const server = new webpackDevServer(
-//   {
-//     client: {
-//       overlay: true,
-//     },
-//     port: 10001,
-//     open: true,
-//     hot: true,
-//   },
-//   compiler
-// );
+const server = new webpackDevServer(
+  {
+    client: {
+      overlay: true,
+    },
+    port: 10001,
+    open: true,
+    hot: true,
+  },
+  compiler
+);
 
-// (async () => {
-//   await server.start();
-//   console.log('dev server is running');
-// })();
+(async () => {
+  await server.start();
+  console.log('dev server is running');
+})();
