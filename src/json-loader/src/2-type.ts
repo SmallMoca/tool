@@ -131,3 +131,51 @@ type ANSER7 = ReverseKeyValue<{
   age: '123';
   info: { msg: string };
 }>;
+
+type Flatten<T> = { [K in keyof T]: T[K] };
+
+// 将指定类型属性设置为可选
+type MarkPropsAsOptional<T, K extends keyof T> = T extends object
+  ? Partial<Pick<T, K>> & Omit<T, K>
+  : T;
+
+type MarkPropsAsOptionalRes = Flatten<MarkPropsAsOptional<Base1, 'age'>>;
+
+// 标记指定属性属性为必传
+type MarkPropsAsRequired<T, K extends keyof T> = T extends object
+  ? Required<Pick<T, K>> & Omit<T, K>
+  : never;
+// 标记指定属性为readonly
+type MarkPropsAsReadonly<T, K extends keyof T> = T extends object
+  ? Readonly<Pick<T, K>> & Omit<T, K>
+  : never;
+
+// 结构工具类型
+
+type BASE2 = {
+  age: number;
+  name: string;
+  info: (msg: string) => string;
+  test?: (msg: string) => boolean;
+};
+
+type KEYS = Flatten<keyof BASE2>;
+type FuncStruct = (...arg: any) => any;
+
+type FunctionKeys<T> = T extends object
+  ? {
+      [K in keyof T]-?: T[K] extends FuncStruct ? K : never;
+    }[keyof T]
+  : never;
+
+type K1 = FunctionKeys<BASE2>; // info
+
+type ExpectedPropKeys<T extends object, ValueType> = {
+  [Key in keyof Required<T>]-?: Required<T>[Key] extends ValueType
+    ? Key
+    : never;
+}[keyof T];
+
+type K2 = ExpectedPropKeys<BASE2, FuncStruct | undefined>; // info
+
+type FunctionKeys2<T extends object> = ExpectedPropKeys<T, FuncStruct>;
