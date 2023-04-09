@@ -160,3 +160,86 @@ type BetterInclude<Str extends string, Search extends string> = Str extends ''
     ? true
     : false
   : Include<Str, Search>;
+
+// 模版字符串类型实现 trim
+
+type TrimLeft<S> = S extends `${infer V} ` ? TrimLeft<V> : S;
+type TrimRight<S> = S extends ` ${infer V}` ? TrimRight<V> : S;
+type T1 = TrimLeft<' str '>;
+type Trim<S> = TrimRight<TrimLeft<S>>;
+
+type T3 = Trim<' 22 22 '>;
+
+type _StartWith<
+  S extends string,
+  Search extends string
+> = S extends `${Search}${infer _R}` ? true : false;
+
+type StartWith<S extends string, Search extends string> = S extends ''
+  ? Search extends ''
+    ? true
+    : _StartWith<S, Search>
+  : _StartWith<S, Search>;
+
+type StartWithRes = StartWith<'yuzhicheng', 'yuzhi'>; // true
+type StartWithRes2 = StartWith<'yuzhicheng', 'luzhi'>; // false
+
+type BaseReplace<
+  Str extends string,
+  Search extends string,
+  Replacement extends string
+> = Str extends `${infer Head}${Search}${infer Tail}`
+  ? `${Head}${Replacement}${Tail}`
+  : Str;
+
+type ReplaceRes1 = BaseReplace<'yuzhicheng', 'yu', 'liu'>;
+
+type ReplaceAll<
+  Str extends string,
+  Search extends string,
+  Replacement extends string
+> = Str extends `${infer Head}${Search}${infer Tail}`
+  ? ReplaceAll<`${Head}${Replacement}${Tail}`, Search, Replacement>
+  : Str;
+
+type ReplaceAllRes = ReplaceAll<'1222123412111232', '1', '2'>; // 2222223422222232
+type ReplaceAllRes1 = ReplaceAll<'www.baidu.com', '.', '-'>; // www-baidu-com
+
+type Replace<
+  Str extends string,
+  Search extends string,
+  Replacement extends string,
+  All extends boolean = false
+> = Str extends `${infer Head}${Search}${infer Tail}`
+  ? All extends true
+    ? Replace<`${Head}${Replacement}${Tail}`, Search, Replacement>
+    : `${Head}${Replacement}${Tail}`
+  : Str;
+
+type ReplaceRes2 = Replace<'www.baidu.com', '.', '-'>; // www-baidu.com"
+type ReplaceRes3 = Replace<'www.baidu.com', '.', '-', true>; // www-baidu.com"
+
+type Split<
+  Str extends string,
+  Delimiter extends string
+> = Str extends `${infer Head}${Delimiter}${infer Tail}`
+  ? [Head, ...Split<Tail, Delimiter>]
+  : Str extends Delimiter
+  ? []
+  : [Str];
+
+type SplitRes1 = Split<'www.baidu.com', '.'>; //["www", "baidu", "com"]
+
+type Join<
+  List extends Array<string | number>,
+  Delimiter extends string
+> = List extends []
+  ? ''
+  : List extends [string | number]
+  ? `${List[0]}`
+  : List extends [number | string, ...infer Rest]
+  ? // @ts-expect-error
+    `${List[0]}${Delimiter}${Join<Rest, Delimiter>}`
+  : string;
+
+type JoinRes = Join<['www', 'baidu', 'com'], '.'>; // "www.baidu.com"
