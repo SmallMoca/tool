@@ -6,6 +6,7 @@ specifiers:
   '@babel/parser': ^7.21.1
   '@babel/traverse': ^7.21.0
   '@babel/types': ^7.21.0
+  '@heroicons/react': ^2.0.17
   babel-loader: ^9.1.2
   file-loader: ^6.2.0
   html-webpack-plugin: ^5.5.0
@@ -23,6 +24,7 @@ specifiers:
   webpackbar: ^5.0.2
 
 dependencies:
+  '@heroicons/react': registry.npmmirror.com/@heroicons/react/2.0.17
   lodash: 4.17.21
   tapable: 2.2.1
   tsd: 0.28.0
@@ -882,7 +884,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: registry.npmmirror.com/fsevents/2.3.2
     dev: true
 
   /chrome-trace-event/1.0.3:
@@ -1411,14 +1413,6 @@ packages:
   /fs.realpath/1.0.0:
     resolution: {integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8=}
     dev: true
-
-  /fsevents/2.3.2:
-    resolution: {integrity: sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
 
   /function-bind/1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
@@ -3073,3 +3067,21 @@ packages:
     resolution: {integrity: sha1-LrfcOwKJcY/ClfNidThFxBoMlO4=}
     engines: {node: '>=10'}
     dev: false
+
+  registry.npmmirror.com/@heroicons/react/2.0.17:
+    resolution: {integrity: sha512-90GMZktkA53YbNzHp6asVEDevUQCMtxWH+2UK2S8OpnLEu7qckTJPhNxNQG52xIR1WFTwFqtH6bt7a60ZNcLLA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@heroicons/react/-/react-2.0.17.tgz}
+    name: '@heroicons/react'
+    version: 2.0.17
+    peerDependencies:
+      react: '>= 16'
+    dev: false
+
+  registry.npmmirror.com/fsevents/2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fsevents/-/fsevents-2.3.2.tgz}
+    name: fsevents
+    version: 2.3.2
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
