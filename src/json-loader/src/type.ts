@@ -2,7 +2,7 @@
  * @Author: yuzhicheng
  * @Date: 2023-03-21 09:42:40
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-03-31 16:38:04
+ * @Last Modified time: 2023-04-10 18:52:02
  * @Title 结构化类型系统
  */
 
@@ -329,9 +329,7 @@ type PickPartial3<T, K extends keyof T, AK = keyof T> = AK extends K
   ? { [KKK in AK]: T[KKK] } & { [KK in K]?: T[KK] }
   : never;
 
-type A1 = PATTERN<
-  PickPartial3<{ name: string; info: { age: number } }, 'name' | 'info'>
->;
+type A1 = PickPartial3<{ name: string; info: { age: number } }, 'name'>;
 
 // 集合工具类型
 // 并集
