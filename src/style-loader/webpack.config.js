@@ -1,16 +1,15 @@
-// @ts-ignore
 /*
  * @Author: yuzhicheng
  * @Date: 2023-03-15 11:58:53
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-04-11 11:36:01
+ * @Last Modified time: 2023-04-11 12:04:33
  */
 const WebpackBar = require('webpackbar');
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackDevServer = require('webpack-dev-server');
-const yaml = require('js-yaml');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const compiler = webpack({
   entry: path.resolve(__dirname, 'src/index.ts'),
@@ -19,33 +18,31 @@ const compiler = webpack({
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.bundle.js',
     clean: true,
+    hashFunction: 'xxhash64',
+    filename: 'main.[id].[contenthash].js',
+    chunkFilename: '[name].[id].chunk.[contenthash].js',
+  },
+  optimization: {
+    runtimeChunk: {
+      name: 'runtime',
+    },
   },
   module: {
     rules: [
       {
-        test: /\.json$/,
+        test: /\.less$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '',
+            },
+          },
+          'css-loader',
+          'postcss-loader',
+          'less-loader',
+        ],
       },
-      {
-        test: /\.png$/,
-        type: 'asset',
-      },
-      {
-        test: /\.yaml$/,
-        type: 'json',
-        parser: {
-          parse: yaml.load,
-        },
-      },
-      // {
-      //   test: /\.customize\.json?$/,
-      //   use: [
-      //     {
-      //       loader: path.resolve(__dirname, './loader/json-loader.js'),
-      //     },
-      //   ],
-      //   // 防止 Webpack 5 中默认的 type: 'json' 解析 .json 文件时会出现问题。
-      //   type: 'javascript/auto',
-      // },
       {
         test: /\.ts?$/,
         use: [
@@ -64,18 +61,20 @@ const compiler = webpack({
   },
   plugins: [
     new WebpackBar({
-      profile: true,
+      profile: false,
       basic: true,
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, './index.html'),
-      // title: 'code splitting',
+      title: 'less loader',
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[contenthash:10].css',
+      chunkFilename: '[name].[contenthash:10].css',
     }),
   ],
   resolve: {
     extensions: ['.ts', '.js'],
   },
-  devtool: 'source-map',
 });
 
 const server = new webpackDevServer(
@@ -83,7 +82,6 @@ const server = new webpackDevServer(
     client: {
       overlay: true,
     },
-    static: path.resolve(__dirname, '../dist/better-hash'),
     port: 10001,
     open: true,
     hot: true,

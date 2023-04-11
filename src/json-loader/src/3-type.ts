@@ -243,3 +243,58 @@ type Join<
   : string;
 
 type JoinRes = Join<['www', 'baidu', 'com'], '.'>; // "www.baidu.com"
+
+type GetOptional<T> = {
+  [Key in keyof T as {} extends Pick<T, Key> ? Key : never]: T[Key];
+};
+type C2 = GetOptional<{ age: number; name?: string }>;
+
+type GetRequired<T> = {
+  [Key in keyof T as {} extends Pick<T, Key> ? never : Key]: T[Key];
+};
+
+type RK1 = GetRequired<{ age: number; name?: string }>;
+
+type RequiredKeys<T> = keyof GetRequired<T>;
+
+type RK = RequiredKeys<{ age: number; name?: string }>;
+
+type GetRequiredKey<T> = {
+  [Key in keyof T as {} extends Pick<T, Key> ? never : Key]: T[Key];
+} extends infer R
+  ? keyof R
+  : never;
+
+type RK2 = GetRequiredKey<{ age: number; name?: string }>;
+
+type GetReadonlyKeys<T> = {
+  [Key in keyof T as Pick<T, Key> extends Readonly<Pick<T, Key>>
+    ? Key
+    : never]: T[Key];
+};
+interface Todo {
+  readonly title: string;
+  readonly description: string;
+  completed: boolean;
+}
+
+type GRK = GetReadonlyKeys<Todo>;
+type BASE_RX = { name: string };
+type RX = Readonly<BASE_RX>;
+
+export type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <
+  T
+>() => T extends Y ? 1 : 2
+  ? true
+  : false;
+
+type GetReadonlyKeys2<T> = keyof {
+  [Key in keyof T as Equal<
+    { [K in Key]: T[Key] },
+    { -readonly [K in Key]: T[Key] }
+  > extends false
+    ? Key
+    : never]: T[Key];
+};
+
+type GETRES = GetReadonlyKeys2<Todo>;

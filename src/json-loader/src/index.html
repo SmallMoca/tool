@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Left-Right Moving Point</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="width: 200px;height: 20px;background-color: aqua;display: flex;align-items: center;">
+    <div id="point" style="position: absolute;height: 10px; width: 10px; left: 0;background-color: red;"></div>
+  </div>
+
+  <button onclick="pause()">Pause</button>
+  <button onclick="resume()">Resume</button>
+  <script>
+    const point = document.getElementById('point');
+    let distance = 0;
+    let direction = 0.1;
+    let move = 1;
+    let intervalId = setInterval(() => {
+      point.style.left = parseInt(point.style.left) + direction * 10 + 'px';
+      distance += 10;
+      if (parseInt(point.style.left) <= 0 || parseInt(point.style.left) >= 200 - point.offsetWidth) {
+        direction = -direction;
+      }
+    }, 1);
+
+    function pause() {
+      clearInterval(intervalId);
+      console.log(Math.ceil(parseInt(point.style.left) / (190 / 8)));
+      return point.style.left;
+    }
+
+    function resume() {
+      intervalId = setInterval(() => {
+        point.style.left = parseInt(point.style.left) + direction * 10 + 'px';
+        distance += 10;
+        if (parseInt(point.style.left) <= 0 || parseInt(point.style.left) >= 200 - point.offsetWidth) {
+          direction = -direction;
+        }
+      }, 1);
+    }
+  </script>
+</body>
+
+</html>
