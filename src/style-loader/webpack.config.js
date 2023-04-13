@@ -2,7 +2,7 @@
  * @Author: yuzhicheng
  * @Date: 2023-03-15 11:58:53
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-04-11 12:04:33
+ * @Last Modified time: 2023-04-12 21:34:47
  */
 const WebpackBar = require('webpackbar');
 const webpack = require('webpack');
@@ -38,8 +38,21 @@ const compiler = webpack({
               publicPath: '',
             },
           },
-          'css-loader',
-          'postcss-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                // 添加 autoprefixer 插件
+                plugins: [require('autoprefixer')],
+              },
+            },
+          },
           'less-loader',
         ],
       },
