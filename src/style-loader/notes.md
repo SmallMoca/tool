@@ -51,4 +51,49 @@ plugins: {
   1. mini-css-extract-plugin 库同时提供 plugin 和 loader 模块，需要同时使用
   2. mini-css-extract-plugin 需要与 html-webpack-plugin 同时使用，才能将产物路径以 link 方式插入 html 中
 
-## postcss-loader
+## postcss-loader 作用
+
+- 配合 browserslist 根据 browserlist 配置的目标浏览器 ，自动为 css 添加前缀，转化为兼容目标浏览器 css
+- 支持使用最新的 css 语法，转化为向后兼容的 css 代码
+- 压缩代码 ，导入 cssnano 插件压缩代码
+
+```js
+{
+  loader: 'postcss-loader',
+   options: {
+    postcssOptions: {
+      // 添加 autoprefixer 插件
+      plugins: [
+        require('autoprefixer'),
+        // cssnano 压缩代码
+        require('cssnano')({
+              colormin: { legacy: true },
+              core: false,
+              zindex: false,
+              reduceIdents: false,
+              mergeIdents: false,
+              discardUnused: { keyframes: false },
+            }),
+        ],
+
+        // colormin: { legacy: true }：启用兼容性模式，用于在压缩颜色时保留 IE 中的 transparent 关键字，防止在某些情况下出现意外行为。
+        // core: false：禁用 cssnano 的默认配置和插件，只使用用户提供的配置和插件。
+        // zindex: false：禁用 z-index 优化，以避免可能存在的副作用。
+        // reduceIdents: false 和 mergeIdents: false：禁用标识符优化，以避免可能存在的副作用。
+        // discardUnused: { keyframes: false }：禁用 keyframes 选择器的删除，以避免在某些情况下出现意外行为。
+        },
+  },
+}
+```
+
+## browserslist 作用
+
+通常我们在 packge.json 中配置 browserlist 字段，代表我们需要兼容的目标浏览器，该配置会作用于 babel postcss 等工具，这些工具会根据改配置来自动生成兼容这些目标浏览器的代码。
+
+- babel 中 browserslist 作用域 @babel/preset-env
+- postcss-loader 主要作用域 cssnano 和 autopreFixer 插件
+
+## 压缩 css 方式
+
+- postcss-loader 中导入 cssnano 上例
+- css-minimizer-webpack-plugin 插件

@@ -2,7 +2,7 @@
  * @Author: yuzhicheng
  * @Date: 2023-03-15 11:58:53
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-04-12 21:34:47
+ * @Last Modified time: 2023-04-14 16:47:48
  */
 const WebpackBar = require('webpackbar');
 const webpack = require('webpack');
@@ -10,6 +10,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpackDevServer = require('webpack-dev-server');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const styleLoader = require('./loader/normal-style-loader');
 
 const compiler = webpack({
   entry: path.resolve(__dirname, 'src/index.ts'),
@@ -30,13 +31,30 @@ const compiler = webpack({
   module: {
     rules: [
       {
-        test: /\.less$/i,
+        test: /\.customize\.json?$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '',
-            },
+            loader: path.resolve(
+              __dirname,
+              '../json-loader/loader/json-loader.js'
+            ),
+          },
+        ],
+        // 防止 Webpack 5 中默认的 type: 'json' 解析 .json 文件时会出现问题。
+        type: 'javascript/auto',
+      },
+      {
+        test: /\.less$/i,
+        use: [
+          // {
+          //   loader: MiniCssExtractPlugin.loader,
+          //   options: {
+          //     publicPath: '',
+          //   },
+          // },
+          // 'style-loader',
+          {
+            loader: path.resolve(__dirname, './loader/pitch-style-loader.js'),
           },
           {
             loader: 'css-loader',
@@ -106,3 +124,7 @@ const server = new webpackDevServer(
   await server.start();
   console.log('dev server is running');
 })();
+
+// compiler.run((err) => {
+//   console.log(err, 'error log');
+// });

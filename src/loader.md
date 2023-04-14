@@ -23,3 +23,5 @@ module.exports = function (source, sourceMap?, data?) {
 `source`: 资源输入，如果是第一个执行的 loader ，source 为资源的文本内容，后续执行的 loader 则为上一个 loader 返回的结果，可能是字符串 也可能是 ast 结构等
 `sourceMap`:可选参数，代码的 sourcemap 结构
 `data`?: 可选参数，其他需要在 loader 链中传递的信息，
+
+# pitch loader
