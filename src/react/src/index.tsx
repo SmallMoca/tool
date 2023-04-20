@@ -2,11 +2,12 @@
  * @Author: yuzhicheng
  * @Date: 2023-04-18 11:32:39
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-04-18 16:23:41
+ * @Last Modified time: 2023-04-19 16:14:03
  */
 
 import App from './app';
 import { createRoot } from 'react-dom/client';
+import 'antd/dist/antd.css';
 
 const root = createRoot(document.getElementById('root')!);
 root.render(<App />);

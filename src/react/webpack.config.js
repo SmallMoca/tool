@@ -2,7 +2,7 @@
  * @Author: yuzhicheng
  * @Date: 2023-04-18 11:23:32
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-04-18 18:45:58
+ * @Last Modified time: 2023-04-20 10:46:37
  */
 const WebpackBar = require('webpackbar');
 const webpack = require('webpack');
@@ -35,6 +35,26 @@ const compiler = webpack({
   },
   module: {
     rules: [
+      {
+        test: /\.css$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [require('autoprefixer')],
+              },
+            },
+          },
+        ],
+      },
       {
         test: /\.less$/i,
         use: [

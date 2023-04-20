@@ -3,7 +3,6 @@ import { useRoutes, Link, Navigate, BrowserRouter } from 'react-router-dom';
 import './app.less';
 
 const context = require.context('./pages', true, /index\.tsx$/);
-context.keys().forEach((k) => console.log(k));
 interface RouteConfig {
   path: string;
   notShowMenu?: boolean;

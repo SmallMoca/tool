@@ -4,19 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-react": "node src/react/webpack.config.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ant-design/icons": "^4.6.0",
+    "@antv/xflow": "^1.0.55",
     "@heroicons/react": "^2.0.17",
+    "antd": "^4.6.3",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-motion": "^0.5.2",
     "react-router-dom": "^6.10.0",
     "tapable": "^2.2.1",
     "tsd": "^0.28.0",
+    "underscore": "^1.13.6",
     "webpack": "^5.75.0"
   },
   "devDependencies": {
@@ -30,9 +35,11 @@
     "@babel/traverse": "^7.21.0",
     "@babel/types": "^7.21.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "@types/lodash": "^4.14.194",
     "@types/node": "^18.15.11",
     "@types/react": "^18.0.37",
     "@types/react-dom": "^18.0.11",
+    "@types/underscore": "^1.11.4",
     "@types/webpack-env": "^1.18.0",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
