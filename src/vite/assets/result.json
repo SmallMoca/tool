@@ -1,0 +1,130 @@
+{
+  "code": "200",
+  "errorCode": "SUCCESS",
+  "msg": "成功",
+  "data": {
+    "list": [
+      {
+        "id": "1083401151564615680",
+        "dashboardNum": "YY1020",
+        "dashboardName": "mwl-看板3",
+        "createName": "wanzq",
+        "createTime": "2023-03-09 14:49",
+        "updateTime": "2023-04-10 15:38",
+        "status": 1,
+        "modelTotalCount": 5,
+        "createBy": null
+      },
+      {
+        "id": "1083409310354116608",
+        "dashboardNum": "YY1021",
+        "dashboardName": "mwl-看板2",
+        "createName": "mwl",
+        "createTime": "2023-03-09 15:21",
+        "updateTime": "2023-03-21 11:49",
+        "status": 1,
+        "modelTotalCount": 4,
+        "createBy": null
+      },
+      {
+        "id": "1083399929390567424",
+        "dashboardNum": "YY1019",
+        "dashboardName": "测试删除模型",
+        "createName": "mwl",
+        "createTime": "2023-03-09 14:44",
+        "updateTime": "2023-03-21 11:06",
+        "status": 0,
+        "modelTotalCount": 3,
+        "createBy": null
+      },
+      {
+        "id": "1085936714700165120",
+        "dashboardNum": "YY1023",
+        "dashboardName": "aaaa",
+        "createName": "mwl",
+        "createTime": "2023-03-16 14:44",
+        "updateTime": "2023-03-21 11:05",
+        "status": 0,
+        "modelTotalCount": 3,
+        "createBy": null
+      },
+      {
+        "id": "1083409983548297216",
+        "dashboardNum": "YY1022",
+        "dashboardName": "mwl-看板1",
+        "createName": "mwl",
+        "createTime": "2023-03-09 15:24",
+        "updateTime": "2023-03-21 10:35",
+        "status": 1,
+        "modelTotalCount": 24,
+        "createBy": null
+      },
+      {
+        "id": "1083097166836273152",
+        "dashboardNum": "YY1018",
+        "dashboardName": "新建测试看板3（重构）",
+        "createName": "qiucj",
+        "createTime": "2023-03-08 18:41",
+        "updateTime": "2023-03-17 17:15",
+        "status": 1,
+        "modelTotalCount": 3,
+        "createBy": null
+      },
+      {
+        "id": "1083095855310966784",
+        "dashboardNum": "YY1017",
+        "dashboardName": "重构看板测试2（重构）",
+        "createName": "qiucj",
+        "createTime": "2023-03-08 18:36",
+        "updateTime": "2023-03-08 18:36",
+        "status": 1,
+        "modelTotalCount": 1,
+        "createBy": null
+      },
+      {
+        "id": "1083095707906347008",
+        "dashboardNum": "YY1016",
+        "dashboardName": "重构看板测试（重构）",
+        "createName": "qiucj",
+        "createTime": "2023-03-08 18:35",
+        "updateTime": "2023-03-08 18:35",
+        "status": 1,
+        "modelTotalCount": 1,
+        "createBy": null
+      },
+      {
+        "id": "1083090484265619456",
+        "dashboardNum": "YY1015",
+        "dashboardName": "1",
+        "createName": "qiucj",
+        "createTime": "2023-03-08 18:14",
+        "updateTime": "2023-03-08 18:14",
+        "status": 1,
+        "modelTotalCount": 1,
+        "createBy": null
+      },
+      {
+        "id": "1083089874799693824",
+        "dashboardNum": "YY1014",
+        "dashboardName": "1",
+        "createName": "qiucj",
+        "createTime": "2023-03-08 18:12",
+        "updateTime": "2023-03-08 18:12",
+        "status": 0,
+        "modelTotalCount": 1,
+        "createBy": null
+      }
+    ],
+    "pageNo": 1,
+    "pageSize": 10,
+    "totalCount": 23,
+    "beginIndex": 0,
+    "orderCondition": "order by update_time DESC",
+    "pageCount": 3,
+    "sort": "update_time",
+    "order": "DESC",
+    "mulFieldOrder": null,
+    "otherData": null
+  },
+  "requestId": null
+}
