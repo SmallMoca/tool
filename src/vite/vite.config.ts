@@ -6,4 +6,7 @@ import path from 'path';
 export default defineConfig({
   root: path.resolve(__dirname, './'),
   plugins: [react()],
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
 });

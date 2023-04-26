@@ -11,3 +11,4 @@ config.json
 .cache-loader
 __tests__/coverage
 .yalc
+red
