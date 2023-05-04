@@ -14,6 +14,7 @@ specifiers:
   '@babel/types': ^7.21.0
   '@heroicons/react': ^2.0.17
   '@pmmmwh/react-refresh-webpack-plugin': ^0.5.10
+  '@tweenjs/tween.js': ^20.0.3
   '@types/lodash': ^4.14.194
   '@types/node': ^18.15.11
   '@types/react': ^18.0.37
@@ -88,6 +89,7 @@ devDependencies:
   '@babel/traverse': 7.21.0
   '@babel/types': 7.21.0
   '@pmmmwh/react-refresh-webpack-plugin': 0.5.10_e764yt37rymiplqgpb7fiwcihu
+  '@tweenjs/tween.js': 20.0.3
   '@types/lodash': 4.14.194
   '@types/node': 18.15.11
   '@types/react': 18.0.37
@@ -2477,6 +2479,10 @@ packages:
   /@tsd/typescript/5.0.2:
     resolution: {integrity: sha512-UgFiSalbDaWrkMBQv8rHetnlwj3HVZtJo6i2aGLe50I6XdlPZFdGRfM2GOaP+i3Tm6p+YcyEql3yoi3ZPs/6Pw==}
     dev: false
+
+  /@tweenjs/tween.js/20.0.3:
+    resolution: {integrity: sha512-SYUe1UgY5HM05EB4+0B4arq2IPjvyzKXoklXKxSYrc2IFxGm1cBrqg5XbiB5uwbs0xY5j+rj986NAJMM0KZaUw==}
+    dev: true
 
   /@types/body-parser/1.19.2:
     resolution: {integrity: sha1-rqIFnii3ZYY5CBNHrE+rPeFm5vA=}
