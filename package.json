@@ -15,6 +15,7 @@
     "@antv/xflow": "^1.0.55",
     "@heroicons/react": "^2.0.17",
     "antd": "^4.6.3",
+    "antd-mobile": "^5.29.1",
     "eventemitter3": "^5.0.0",
     "gsap": "^3.11.5",
     "lodash": "^4.17.21",

@@ -1,8 +1,7 @@
 import React from 'react';
 import * as PIXI from 'pixi.js';
-import * as TWEEN from '@tweenjs/tween.js';
 import './app.less';
-
+import { Modal } from 'antd-mobile';
 import rainDrapUrl from './image/rainDrap.png';
 function getRandomInt(min: number, max: number) {
   // Math.floor向下取整，Math.random()返回一个[0, 1)的随机数
@@ -42,6 +41,7 @@ class LuckyRain {
   lastTime: number | undefined;
   startCountdown: PIXI.Text | undefined = undefined;
   startCountDownTimer: NodeJS.Timer | undefined = undefined;
+  result = new Map();
   constructor(container: HTMLElement, opts?: IOpts) {
     this.app = new PIXI.Application({
       width: container.offsetWidth,
@@ -107,6 +107,11 @@ class LuckyRain {
         fontSize: 12,
         fill: '#FFD442',
       });
+      if (self.result.get(rainDrap.name)) {
+        self.result.set(rainDrap.name, self.result.get(rainDrap.name) + 1);
+      } else {
+        self.result.set(rainDrap.name, 1);
+      }
       const { x, y } = event.data.getLocalPosition(sprite.parent);
       text.x = x;
       text.y = y;
@@ -198,9 +203,8 @@ class LuckyRain {
       const sprite = rainDrap.sprite;
       if (!sprite._destroyed) {
         sprite.y += delta * rainDrap.speed;
-        console.log(sprite.y);
 
-        if (sprite.y > this.app.renderer.height) {
+        if (sprite.y > this.app.renderer.height + 20) {
           this.app.stage.removeChild(sprite);
           sprite.destroy();
         }
@@ -218,9 +222,16 @@ class LuckyRain {
       this.rainDrapList = [];
       this.TipTextList = [];
       this.app.ticker.remove(this.tickerCallback);
-
+      // const
+      let resStr = '获得';
+      this.result.forEach((v, k) => {
+        resStr = resStr + `/\n${k}${v}个`;
+      });
       //   this.cb();
-      alert('游戏结束');
+      Modal.alert({
+        title: '游戏结束',
+        content: resStr,
+      });
     }
 
     for (let i = 0; i < this.TipTextList.length; i++) {
@@ -245,8 +256,10 @@ class LuckyRain {
   };
   private _start() {
     this.endTag = false;
+    this.result = new Map();
     this.lastTime = performance.now();
     this.countdownTimer();
+    this.app.ticker.minFPS = 30;
     this.stageTicker = this.app.ticker.add(this.tickerCallback);
     // console.log(this.app);
   }
