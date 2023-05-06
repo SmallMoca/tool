@@ -210,7 +210,6 @@ class LuckyRain {
         }
       }
     }
-
     if (
       this.endTag &&
       this.rainDrapList.every((item) => item.sprite._destroyed)
@@ -221,6 +220,7 @@ class LuckyRain {
       this.rainDrapList.forEach((s) => this.app.stage.removeChild(s.sprite));
       this.rainDrapList = [];
       this.TipTextList = [];
+
       this.app.ticker.remove(this.tickerCallback);
       // const
       let resStr = '获得';

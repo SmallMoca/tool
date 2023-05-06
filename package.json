@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start-react": "node src/react/webpack.config.js",
-    "vite-react": "vite --config ./src/vite/vite.config.ts"
+    "vite-react": "vite --config ./src/vite/vite.config.ts",
+    "vite-tool": "vite --config ./src/vite-tool/vite.config.ts"
   },
   "keywords": [],
   "author": "",
