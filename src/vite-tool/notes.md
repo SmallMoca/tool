@@ -18,3 +18,24 @@ vite 对 css 预处理器语言做了内置支持，零配置即可使用
 vite 中 css modules 是开箱即用的功能。Vite 会对后缀带有.module 的样式文件自动应用 CSS Modules
 
 ### vite 中 PostCSS 配置
+
+```ts
+css: {
+    modules: {
+      generateScopedName: '[local]__[hash:base64:5]',
+      localsConvention: 'camelCaseOnly',
+    },
+    postcss: {
+      plugins: [
+        autoprefixer({
+          overrideBrowserslist: [
+            'last 2 versions',
+            '> 1%',
+            'iOS 7',
+            'last 3 iOS versions',
+          ],
+        }),
+      ],
+    },
+  },
+```
