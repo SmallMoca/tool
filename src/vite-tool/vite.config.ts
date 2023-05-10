@@ -4,7 +4,6 @@ import svgr from 'vite-plugin-svgr';
 import path from 'path';
 
 import autoprefixer from 'autoprefixer';
-console.log(process.env);
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -35,6 +34,9 @@ export default defineConfig({
         }),
       ],
     },
+  },
+  optimizeDeps: {
+    exclude: ['lodash-es'],
   },
   server: {
     host: true,
