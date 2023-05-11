@@ -35,8 +35,10 @@ export default defineConfig({
       ],
     },
   },
+
   optimizeDeps: {
-    exclude: ['lodash-es'],
+    entries: [path.resolve(__dirname, 'src/app.tsx')],
+    // exclude: ['lodash-es'],
   },
   server: {
     host: true,

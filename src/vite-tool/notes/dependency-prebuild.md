@@ -18,3 +18,17 @@
   2. 包管理器的 lock 文件
   3. vite 配置的 optimizeDeps 配置内容
      这些部分的内容没有改变，将会一直缓存依赖产物文件
+
+## 依赖预构建产物缓存
+
+1. 文件系统缓存
+   vite 将预构建依赖产物缓存到 node_modules/.vite 目录，下面几个因素影响是否重新构建依赖产物
+
+   - 包管理器锁文件内容 比如 pnpm-lock.yaml packge-locak.json
+   - vite.config.ts 相关相关字段 比如 optimizeDeps
+   - NODE_ENV 等值
+
+2. 浏览器缓存
+   预构建的依赖产物请求使用 http 请求头 max-age=31536000, immutable 强魂村，提高开发阶段页面加载性能
+
+## vite 依赖优化选项 optimizeDeps
