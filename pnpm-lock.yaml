@@ -14,7 +14,9 @@ specifiers:
   '@babel/types': ^7.21.0
   '@heroicons/react': ^2.0.17
   '@pmmmwh/react-refresh-webpack-plugin': ^0.5.10
+  '@rollup/plugin-alias': ^5.0.0
   '@rollup/plugin-commonjs': ^24.1.0
+  '@rollup/plugin-image': ^3.0.2
   '@rollup/plugin-node-resolve': ^15.0.2
   '@tweenjs/tween.js': ^20.0.3
   '@types/lodash': ^4.14.194
@@ -103,7 +105,9 @@ devDependencies:
   '@babel/traverse': 7.21.0
   '@babel/types': 7.21.0
   '@pmmmwh/react-refresh-webpack-plugin': 0.5.10_e764yt37rymiplqgpb7fiwcihu
+  '@rollup/plugin-alias': 5.0.0_rollup@3.21.6
   '@rollup/plugin-commonjs': 24.1.0_rollup@3.21.6
+  '@rollup/plugin-image': 3.0.2_rollup@3.21.6
   '@rollup/plugin-node-resolve': 15.0.2_rollup@3.21.6
   '@tweenjs/tween.js': 20.0.3
   '@types/lodash': 4.14.194
@@ -2425,6 +2429,19 @@ packages:
     engines: {node: '>=14'}
     dev: false
 
+  /@rollup/plugin-alias/5.0.0_rollup@3.21.6:
+    resolution: {integrity: sha512-l9hY5chSCjuFRPsnRm16twWBiSApl2uYFLsepQYwtBuAxNMQ/1dJqADld40P0Jkqm65GRTLy/AC6hnpVebtLsA==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      rollup: 3.21.6
+      slash: 4.0.0
+    dev: true
+
   /@rollup/plugin-commonjs/24.1.0_rollup@3.21.6:
     resolution: {integrity: sha512-eSL45hjhCWI0jCCXcNtLVqM5N1JlBGvlFfY0m6oOYnLCJ6N0qEXoZql4sY2MOUArzhH4SA/qBpTxvvZp2Sc+DQ==}
     engines: {node: '>=14.0.0'}
@@ -2440,6 +2457,20 @@ packages:
       glob: 8.1.0
       is-reference: 1.2.1
       magic-string: 0.27.0
+      rollup: 3.21.6
+    dev: true
+
+  /@rollup/plugin-image/3.0.2_rollup@3.21.6:
+    resolution: {integrity: sha512-eGVrD6lummWH5ENo9LWX3JY62uBb9okUNQ2htXkugrG6WjACrMUVhWvss+0wW3fwJWmFYpoEny3yL4spEdh15g==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.0.2_rollup@3.21.6
+      mini-svg-data-uri: 1.4.4
       rollup: 3.21.6
     dev: true
 
@@ -5199,6 +5230,11 @@ packages:
       webpack: 5.75.0_esbuild@0.17.18
     dev: true
 
+  /mini-svg-data-uri/1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
+    hasBin: true
+    dev: true
+
   /minimalistic-assert/1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
     dev: true
@@ -6852,6 +6888,11 @@ packages:
   /slash/3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
+
+  /slash/4.0.0:
+    resolution: {integrity: sha1-JCI3IXbExsWt214q2oha+YSzlqc=}
+    engines: {node: '>=12'}
+    dev: true
 
   /sockjs/0.3.24:
     resolution: {integrity: sha512-GJgLTZ7vYb/JtPSSZ10hsOYIvEYsjbNU+zPdIHcUaWVNUEPivzxku31865sSSud0Da0W4lEeOPlmw93zLQchuQ==}
