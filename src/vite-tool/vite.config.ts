@@ -10,7 +10,14 @@ import autoprefixer from 'autoprefixer';
 export default defineConfig({
   base: '/',
   root: path.resolve(__dirname, './'),
-  plugins: [react(), svgr(), myVitePlugin(), myVirtualPlugin()],
+  plugins: [
+    react(),
+    svgr(),
+    myVitePlugin({
+      entry: './src/index.tsx',
+    }),
+    myVirtualPlugin(),
+  ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {

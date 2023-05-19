@@ -6,6 +6,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "paths": {
+      "comps/*": ["src/components/*"],
       "@/*": ["src/*"] // 路径映射，相对于baseUrl
     },
     /* Bundler mode */

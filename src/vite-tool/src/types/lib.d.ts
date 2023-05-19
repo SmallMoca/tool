@@ -18,3 +18,7 @@ declare module '*.json?url' {
   const value: string;
   export default value;
 }
+
+declare module 'virtual:my-module' {
+  export const msg: string;
+}
