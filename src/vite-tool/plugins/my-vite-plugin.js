@@ -2,7 +2,7 @@
  * @Author: yuzhicheng
  * @Date: 2023-05-18 18:33:41
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-05-19 18:21:26
+ * @Last Modified time: 2023-05-24 13:11:21
  * @Desc Vite plugin
  */
 import path from 'path';
@@ -10,7 +10,7 @@ import chalk from 'chalk';
 import { createDebug } from './utils/create-debug';
 
 const debug = createDebug('my');
-console.log(debug);
+// console.log(debug);
 
 /**
  *
@@ -56,21 +56,6 @@ function myVitePlugin(opts = {}) {
         const addLine = `\nconst filePath = "${id}call";\nconsole.log(filePath);\n`;
         return addLine + code;
       }
-    },
-
-    transformIndexHtml(html) {
-      // console.log(html);
-
-      return {
-        html,
-        tags: [
-          {
-            injectTo: 'body',
-            attrs: { type: 'module', src: entry },
-            tag: 'script',
-          },
-        ],
-      };
     },
   };
 }

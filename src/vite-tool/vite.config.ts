@@ -5,7 +5,9 @@ import path from 'path';
 import myVirtualPlugin from './plugins/my-virtual-plugin';
 const myVitePlugin = require('./plugins/my-vite-plugin.js');
 import autoprefixer from 'autoprefixer';
-
+import Inspect from 'vite-plugin-inspect';
+import html from './vite-better-html-plugin/index';
+const myCustomPlugin = require('./plugins/my-custom-plugin');
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '/',
@@ -13,10 +15,12 @@ export default defineConfig({
   plugins: [
     react(),
     svgr(),
+    html(),
     myVitePlugin({
       entry: './src/index.tsx',
     }),
     myVirtualPlugin(),
+    Inspect(),
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
