@@ -2,12 +2,12 @@
  * @Author: yuzhicheng
  * @Date: 2023-05-18 18:33:41
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-05-24 13:11:21
+ * @Last Modified time: 2023-05-25 15:27:03
  * @Desc Vite plugin
  */
 import path from 'path';
 import chalk from 'chalk';
-import { createDebug } from './utils/create-debug';
+import createDebug from './utils/create-debug';
 
 const debug = createDebug('my');
 // console.log(debug);

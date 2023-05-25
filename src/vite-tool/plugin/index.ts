@@ -2,7 +2,7 @@
  * @Author: yuzhicheng
  * @Date: 2023-05-24 10:49:37
  * @Last Modified by: yuzhicheng
- * @Last Modified time: 2023-05-24 15:46:33
+ * @Last Modified time: 2023-05-25 14:17:21
  * @Desc vite-better-html-plugin
  */
 
@@ -67,8 +67,9 @@ export default function viteHtmlPlugin(options: IIptions = {}): Plugin {
       </body>
       </html>`.trim();
         res.setHeader('Content-Type', 'text/html');
-        debug('dddd');
         res.write(html);
+        res.end();
+        next();
       });
     },
     transformIndexHtml(html) {

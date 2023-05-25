@@ -1,7 +1,7 @@
 const connect = require('connect');
 const handlebars = require('handlebars');
 const path = require('path');
-import { createDebug } from './utils/create-debug';
+import createDebug from './utils/create-debug';
 const chalk = require('chalk');
 
 const debug = createDebug('customHtml');
