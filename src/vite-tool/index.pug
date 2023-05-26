@@ -1,3 +1,28 @@
-block content
-  #container.container
+//- 通用布局框架结构
 
+doctype html
+html.no-js(lang="zh-cmn-Hans")
+  head
+    meta(charset="utf-8")
+    meta(name="author" content="RabbitPre - www.rabbitpre.com")
+    meta(name="keywords" content="")
+    meta(name="description" content="")
+    meta(name="viewport" content="width=device-width, initial-scale=1, user-scalable=no")
+    meta(name="renderer" content="webkit")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    if upgradeInsecureRequests
+      meta(http-equiv="Content-Security-Policy" content="upgrade-insecure-requests")
+    //- 每个页面指定页面标题
+    block title
+      title 兔展云医-运营后台
+    //- 每个页面都可以指定新的头部标签：meta、link、script、style等
+    block head
+  script(type='text/javascript' src='//at.alicdn.com/t/c/font_3744782_2t5pvr5ff4y.js')
+
+  body.root
+    //- 每个页面的结构内容实现
+    
+    block content
+      #container.container
+    //- 每个页面都可以指定外部或内嵌的脚本
+    block script

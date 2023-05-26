@@ -12,3 +12,4 @@ config.json
 __tests__/coverage
 .yalc
 red
+.rp-pug-temp-html

@@ -15,7 +15,7 @@ export default defineConfig({
   plugins: [
     react(),
     svgr(),
-    pugPlugin({ template: './index.pug' }),
+    pugPlugin({ template: './index.html', entry: './src/index.tsx' }),
     myVitePlugin({
       entry: './src/index.tsx',
     }),
