@@ -15,12 +15,12 @@ export default defineConfig({
   plugins: [
     react(),
     svgr(),
-    pugPlugin({ template: './index.html', entry: './src/index.tsx' }),
+    pugPlugin({ template: './index.pug', entry: './src/index.tsx' }),
     myVitePlugin({
       entry: './src/index.tsx',
     }),
     myVirtualPlugin(),
-    Inspect(),
+    // Inspect(),
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
@@ -49,7 +49,7 @@ export default defineConfig({
   },
 
   optimizeDeps: {
-    entries: [path.resolve(__dirname, 'src/app.tsx')],
+    // entries: [path.resolve(__dirname, 'src/app.tsx')],
     // exclude: ['lodash-es'],
   },
   server: {

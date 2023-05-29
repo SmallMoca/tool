@@ -8,7 +8,7 @@ console.log(msg);
 
 const onChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
   console.log(e.target.value);
-}, 500);
+}, 100);
 export default function App() {
   console.log('sdddss');
 

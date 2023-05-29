@@ -1,4 +1,4 @@
-import type { Plugin, ResolvedConfig, ConfigEnv } from 'vite';
+import { Plugin, ResolvedConfig, ConfigEnv, normalizePath } from 'vite';
 import chalk from 'chalk';
 import pug from 'pug';
 import type { Options } from 'pug';
@@ -44,7 +44,12 @@ export default function pugPlugin(
       return {
         build: {
           rollupOptions: {
-            input: path.resolve(config.root, '.rp-pug-temp-html/index.html'),
+            input: {
+              index: path.resolve(
+                config.root,
+                './.rp-pug-temp-html/index.html'
+              ),
+            },
           },
         },
       };
@@ -70,7 +75,7 @@ export default function pugPlugin(
         inlineRuntimeFunctions: false, // 是否将运行时函数内联到编译后的代码中。默认为 false，即不内联。
         filters: pugOptions.filters, // 要使用的 Pug 过滤器列表。默认为空数组
       });
-      const html = tplFunc({ upgradeInsecureRequests: false });
+      const html = tplFunc({ upgradeInsecureRequests: true });
       serverTempHtmlPath = dest(htmlDir, html, 'index.html');
     },
 
@@ -79,9 +84,6 @@ export default function pugPlugin(
         {
           from: new RegExp(`^/*`),
           to({ parsedUrl }: any) {
-            console.log(
-              chalk.bgRed(path.relative(config.root, serverTempHtmlPath))
-            );
             return '/.rp-pug-temp-html/index.html';
           },
         },
@@ -95,27 +97,37 @@ export default function pugPlugin(
         })
       );
     },
-    transformIndexHtml(html) {
-      let targetEntry = path.resolve(config.root, entry);
-      console.log(chalk.green(cacheCommand));
+    transformIndexHtml: {
+      enforce: 'pre',
+      async transform(html) {
+        let targetEntry = entry;
 
-      if (cacheCommand === 'build') {
-        targetEntry = path.relative(htmlDir, targetEntry);
+        if (cacheCommand === 'build') {
+          targetEntry = path.relative(
+            htmlDir,
+            path.resolve(config.root, entry)
+          );
+        }
+
+        return {
+          html,
+          tags: [
+            {
+              injectTo: 'body',
+              attrs: { type: 'module', src: normalizePath(targetEntry) },
+              tag: 'script',
+            },
+          ],
+        };
+      },
+    },
+    async closeBundle() {
+      console.log('closeBundle');
+    },
+    generateBundle(outPutOptions, buildle) {
+      for (const key in buildle) {
+        console.log(chalk.bgRed(key));
       }
-      console.log(chalk.bgRed(htmlDir));
-      console.log(chalk.bgGreen(targetEntry));
-      console.log(targetEntry);
-
-      return {
-        html,
-        tags: [
-          {
-            injectTo: 'body',
-            attrs: { type: 'module', src: entry },
-            tag: 'script',
-          },
-        ],
-      };
     },
   };
 }
