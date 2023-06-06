@@ -16,6 +16,7 @@ export default function App() {
     <div>
       <ClockIn />
       <input onChange={onChange} placeholder='input' type='text' />
+      {/* vite.css */}
     </div>
   );
 }

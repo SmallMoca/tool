@@ -75,7 +75,7 @@ export default function pugPlugin(
         inlineRuntimeFunctions: false, // 是否将运行时函数内联到编译后的代码中。默认为 false，即不内联。
         filters: pugOptions.filters, // 要使用的 Pug 过滤器列表。默认为空数组
       });
-      const html = tplFunc({ upgradeInsecureRequests: true });
+      const html = tplFunc({ upgradeInsecureRequests: false });
       serverTempHtmlPath = dest(htmlDir, html, 'index.html');
     },
 

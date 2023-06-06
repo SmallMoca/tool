@@ -8,6 +8,7 @@
     "vite-react": "vite --config ./src/vite/vite.config.ts",
     "vite-tool": "vite --config ./src/vite-tool/vite.config.ts",
     "vite-tool:build": "vite build --config ./src/vite-tool/vite.config.ts",
+    "build-13436": "vite build --config ./src/issues-13436/vite.config.js",
     "build-vite-tool": "vite build -c ./src/vite-tool/vite.config.ts",
     "preview-vite-tool": "vite preview -c ./src/vite-tool/vite.config.ts",
     "rollup-tool": "rollup -c ./src/rollup-tool/rollup.config.js"
