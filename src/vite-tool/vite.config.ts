@@ -3,10 +3,13 @@ import react from '@vitejs/plugin-react-swc';
 import svgr from 'vite-plugin-svgr';
 import path from 'path';
 import myVirtualPlugin from './plugins/my-virtual-plugin';
+
 const myVitePlugin = require('./plugins/my-vite-plugin.js');
 import autoprefixer from 'autoprefixer';
 import Inspect from 'vite-plugin-inspect';
 import pugPlugin from './plugin/pug';
+import myVirtualHtml from './plugin/my-virtual';
+
 const myCustomPlugin = require('./plugins/my-custom-plugin');
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,12 +18,13 @@ export default defineConfig({
   plugins: [
     react(),
     svgr(),
-    pugPlugin({ template: './index.pug', entry: './src/index.tsx' }),
+    // pugPlugin({ template: './index.pug', entry: './src/index.tsx' }),
     myVitePlugin({
       entry: './src/index.tsx',
     }),
     myVirtualPlugin(),
-    // Inspect(),
+    myVirtualHtml({ template: './index.pug', entry: './src/index.tsx' }),
+    Inspect(),
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
