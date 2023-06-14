@@ -1,4 +1,4 @@
-import { Plugin, ResolvedConfig, normalizePath } from 'vite';
+import { ConfigEnv, Plugin, ResolvedConfig, normalizePath } from 'vite';
 import fs from 'node:fs';
 import pug from 'pug';
 import path from 'node:path';
@@ -13,20 +13,34 @@ interface IOps {
 export default function virtualHtml(opts: IOps): Plugin {
   let config: ResolvedConfig;
   const { template, entry } = opts;
+  let cacheCommand: ConfigEnv['command'];
 
   return {
     name: 'my-virtual-html',
+    config(config, { command }) {
+      cacheCommand = command;
+      const tplPath = path.resolve(config.root, template);
+      const { name } = path.parse(tplPath);
+
+      return {
+        build: {
+          rollupOptions: {
+            input: {
+              [name]: tplPath,
+            },
+          },
+        },
+      };
+    },
+
     configResolved(resolvedConfig) {
       config = resolvedConfig;
     },
     configureServer(server) {
-      console.log('run configureserver hook');
-
       server.middlewares.use(async (req, res, next) => {
         const tplPath = path.resolve(config.root, template);
         const { name } = path.parse(tplPath);
         const reg = new RegExp(`^/${name}(\\.html)?$`);
-        console.log(name);
 
         if (reg.test(req.url) || (req.url === '/' && name === 'index')) {
           const tpl = compilePug(tplPath);
@@ -38,6 +52,12 @@ export default function virtualHtml(opts: IOps): Plugin {
         }
         next();
       });
+    },
+
+    transform(code, id, options) {
+      console.log(id);
+
+      // todo
     },
     transformIndexHtml: {
       enforce: 'pre',

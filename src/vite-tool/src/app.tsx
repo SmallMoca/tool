@@ -10,13 +10,12 @@ const onChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
   console.log(e.target.value);
 }, 100);
 export default function App() {
-  console.log('sdddss');
+  console.log('app render!!');
 
   return (
     <div>
       <ClockIn />
       <input onChange={onChange} placeholder='input' type='text' />
-      {/* vite.css */}
     </div>
   );
 }

@@ -126,3 +126,15 @@ export function indexHtmlMiddleware(
 ```
 
 ## 构建
+
+## 插件 plugin
+
+vite plugin 执行的顺序
+
+- alias
+- 带 `enforce:'pre'`的用户插件
+- vite 核心插件
+- 没有 `enforce` 值的 用户插件
+- vite 构建用的插件
+- 带 `enforce: 'post'` 的用户插件
+- vite 后置构建插件 （最小化，manifest，报告）
