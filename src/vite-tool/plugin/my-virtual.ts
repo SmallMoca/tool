@@ -1,27 +1,28 @@
-import { ConfigEnv, Plugin, ResolvedConfig, normalizePath } from 'vite';
+import { Plugin, ResolvedConfig, normalizePath } from 'vite';
 import fs from 'node:fs';
 import pug from 'pug';
 import path from 'node:path';
 import type { Options } from 'pug';
-import chalk from 'chalk';
 
 interface IOps {
   template: string;
   entry: string;
 }
 
+function changeFileExtension(filePath: string, newExtension: string) {
+  return filePath.replace(/\.[^.]+$/, '.' + newExtension);
+}
+
 export default function virtualHtml(opts: IOps): Plugin {
   let config: ResolvedConfig;
   const { template, entry } = opts;
-  let cacheCommand: ConfigEnv['command'];
 
   return {
     name: 'my-virtual-html',
+    enforce: 'pre',
     config(config, { command }) {
-      cacheCommand = command;
-      const tplPath = path.resolve(config.root, template);
+      const tplPath = normalizePath(path.resolve(config.root, template));
       const { name } = path.parse(tplPath);
-
       return {
         build: {
           rollupOptions: {
@@ -36,6 +37,21 @@ export default function virtualHtml(opts: IOps): Plugin {
     configResolved(resolvedConfig) {
       config = resolvedConfig;
     },
+
+    resolveId(source) {
+      const tplPath = normalizePath(path.resolve(config.root, template));
+      if (source === tplPath) {
+        return changeFileExtension(source, 'html');
+      }
+    },
+
+    load(id) {
+      const tplPath = normalizePath(path.resolve(config.root, template));
+      if (changeFileExtension(tplPath, 'html') === id) {
+        return compilePug(tplPath);
+      }
+    },
+
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const tplPath = path.resolve(config.root, template);
@@ -54,11 +70,6 @@ export default function virtualHtml(opts: IOps): Plugin {
       });
     },
 
-    transform(code, id, options) {
-      console.log(id);
-
-      // todo
-    },
     transformIndexHtml: {
       enforce: 'pre',
       async transform(html) {
@@ -92,6 +103,5 @@ const compilePug = (path: string, pugOptions: Options = {}) => {
     inlineRuntimeFunctions: false, // 是否将运行时函数内联到编译后的代码中。默认为 false，即不内联。
     filters: pugOptions.filters, // 要使用的 Pug 过滤器列表。默认为空数组
   });
-  const html = tplFunc({ upgradeInsecureRequests: false });
-  return html;
+  return tplFunc({ upgradeInsecureRequests: false });
 };

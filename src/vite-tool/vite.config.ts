@@ -9,6 +9,7 @@ import autoprefixer from 'autoprefixer';
 import Inspect from 'vite-plugin-inspect';
 import pugPlugin from './plugin/pug';
 import myVirtualHtml from './plugin/my-virtual';
+import ViteTemplatePlugin from './vite-template-plugin/index';
 
 const myCustomPlugin = require('./plugins/my-custom-plugin');
 // https://vitejs.dev/config/
@@ -25,6 +26,15 @@ export default defineConfig({
     myVirtualPlugin(),
     myVirtualHtml({ template: './index.pug', entry: './src/index.tsx' }),
     Inspect(),
+    ViteTemplatePlugin([
+      { template: './index.pug', entry: './src/index.tsx' },
+      {
+        template: './tpl/test/index.html',
+      },
+      {
+        template: './index-tpl.html',
+      },
+    ]),
   ],
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],

@@ -16,6 +16,22 @@ export default function App() {
     <div>
       <ClockIn />
       <input onChange={onChange} placeholder='input' type='text' />
+
+      <button
+        onClick={(e) => {
+          e.persist();
+          console.log(e.target);
+          new Promise((r) => {
+            setTimeout(() => {
+              r(true);
+            }, 2000);
+          }).then(() => {
+            console.log(e.target);
+          });
+        }}
+      >
+        dddd
+      </button>
     </div>
   );
 }
