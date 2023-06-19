@@ -24,7 +24,7 @@ export default defineConfig({
       entry: './src/index.tsx',
     }),
     myVirtualPlugin(),
-    myVirtualHtml({ template: './index.pug', entry: './src/index.tsx' }),
+    // myVirtualHtml({ template: './index.pug', entry: './src/index.tsx' }),
     Inspect(),
     ViteTemplatePlugin([
       { template: './index.pug', entry: './src/index.tsx' },
@@ -65,6 +65,13 @@ export default defineConfig({
   optimizeDeps: {
     // entries: [path.resolve(__dirname, 'src/app.tsx')],
     // exclude: ['lodash-es'],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        entryFileNames: 'entry-[name].js',
+      },
+    },
   },
   server: {
     host: true,
