@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>promise</title>
+</head>
+
+<body>
+  <script>
+    (async () => {
+      const arr = [];
+      async function add(arr, item) {
+        await Promise.resolve();
+        arr.push(item);
+      }
+
+      await add(arr, 1);
+      await add(arr, 2);
+      await add(arr, 3);
+      console.log(arr);
+    })()
+  </script>
+</body>
+
+</html>

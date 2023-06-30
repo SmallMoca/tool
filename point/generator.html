@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>generator</title>
+</head>
+
+<body>
+  <script>
+    // function* 语法结构 创建一个 generator 函数
+    function* gen() {
+      yield 1;
+      yield 2;
+      yield 3;
+      return 4
+    }
+    // 运行 generator 函数，gen 函数内部的代码不会运行 ，该返回一个迭代器对象,
+    const g = gen();
+    // generator 函数执行返回的迭代器对象，有一个 next 方法，每次调用 next 方法，都会返回一个对象，该对象有两个属性，value 和 done
+    console.log(g);
+    console.log(g.next());
+    console.log(g.next());
+    console.log(g.next());
+    console.log(g.next());
+    console.log(g.next());
+    const g1 = gen();
+    for (const iterator of g1) {
+      console.log(iterator);
+    }
+
+
+
+  </script>
+</body>
+
+</html>
