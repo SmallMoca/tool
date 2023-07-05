@@ -9,18 +9,203 @@
 
 <body>
   <script>
-    (async () => {
-      const arr = [];
-      async function add(arr, item) {
-        await Promise.resolve();
-        arr.push(item);
-      }
 
-      await add(arr, 1);
-      await add(arr, 2);
-      await add(arr, 3);
-      console.log(arr);
-    })()
+
+    // new Promise(function (resolve, reject) {
+
+    //   setTimeout(() => resolve(1), 1000); // (*)
+
+    // }).then(function (result) { // (**)
+
+    //   console.log(result); // 1
+    //   return result * 2;
+
+    // }).then(function (result) { // (***)
+
+    //   console.log(result); // 2
+    //   return result * 2;
+
+    // }).then(function (result) {
+
+    //   console.log(result); // 4
+    //   return result * 2;
+
+    // });
+
+    // let promise = new Promise(function (resolve, reject) {
+    //   setTimeout(() => resolve(1), 1000);
+    // });
+
+    // const p1 = promise.then(function (result) {
+    //   console.log(result); // 1
+    //   return result * 2;
+    // });
+
+    // const p2 = p1.then(function (result) {
+    //   console.log(result); // 1
+    //   return result * 2;
+    // });
+
+    // p2.then(function (result) {
+    //   console.log(result); // 1
+    //   return result * 2;
+    // });
+
+
+    // function Man() {
+    //   let p = Promise.resolve()
+
+    //   const self = {
+    //     eat: (fool) => {
+    //       p = p.then(() => {
+    //         console.log(fool);
+    //       })
+
+    //       return self
+
+    //     },
+    //     sleep: (time) => {
+    //       p = p.then(() => {
+    //         return new Promise(r => {
+    //           setTimeout(() => {
+    //             r()
+
+    //           }, time);
+    //         })
+    //       })
+    //       return self
+    //     }
+
+    //   }
+
+    //   return self
+    // }
+
+    // Man().eat('a').sleep(3000).eat('b').sleep(1000).eat('c')
+
+
+
+
+
+    // const p = Promise.resolve().then(res => {
+    //   return {
+    //     then: (fn) => {
+    //       fn('test thenable')
+    //     }
+    //   }
+    // })
+
+
+    // console.log(p);
+
+    // p.then(r => {
+    //   console.log(r);
+    // })
+
+
+
+
+    // // promise 错误处理 
+    // // 当一个promise reject的时候，会被promise 链中最近的一个 catch 方法处理
+
+
+    // new Promise((resolve, reject) => {
+    //   reject(new Error("Whoops!"));
+    // }).then().then().catch(e => {
+    //   console.log(e);
+    // }); // Error: Whoops!
+
+
+
+
+    // // promise 的执行者  有一个隐式的 try catch 如果发生错误异常 这个异常会被捕获。并视为reject 处理
+    // new Promise((resolve, reject) => {
+    //   throw new Error('custom error')
+    // }).catch(e => {
+    //   console.log(e);
+    // })
+
+
+    // // 等价于
+
+
+    // new Promise((resolve, reject) => {
+    //   try {
+    //     throw new Error('custom error')
+    //   } catch (error) {
+    //     reject(error)
+    //   }
+    // }).catch(e => {
+    //   console.log(e);
+    // })
+
+    // // 未被处理的 rejection 会在全局生成一个Error
+    // // 
+    // window.addEventListener('unhandledrejection', function (e) {
+    //   // console.log('promise uncaught rejection', e);
+    //   console.log(e.promise)
+    //   console.log(e.reason);
+    // })
+
+    // Promise.reject('未被捕获的promise错误')
+
+    // // Promise api
+    // // promise.all
+    // // Promise.allSettled
+    // // allSettled 不管promise resolve 还是 reject ，结束之后都被执行
+    // Promise.allSettled([
+    //   Promise.resolve({ data: [] }),
+    //   Promise.reject(new Error('请求失败')),
+    //   1
+    // ]).then(r => {
+    //   // 
+    //   console.log(r);
+    // })
+
+    // // Promise.race 
+    // // 等待第一个 settle （结束 的promise ，并将 result/err 作为结果返回
+
+
+    // // Promise.any
+    // // 等待第一个 fulfilled的 promise 作为结果返回，如果全部都是reject，抛出一个 aggregateError错误
+    // Promise.any([
+    //   Promise.reject('Promise.any reject'),
+    //   Promise.reject('Promise.any reject')
+    // ]).catch(err => {
+    //   console.log('Promise.any all promise were rejected', err);
+    // })
+
+
+
+    // // Promise.resolve promise.reject
+
+    // // Promise.resolve 创建一个被resolve 的promise 对象
+    // // 项目中通常用这个api 来保持兼容性
+    // // 比如我们有个方法loadCached方法，第一次加载的时候 我们请求后端拉取数据 
+    // // 返回的是一个异步ppromise ，第二次调用这个方法时候我们是从缓存中拿到结果
+    // // 为了保持这个方法的异步特性 我们 会用promise.resolve将cache取到的值包裹下返回
+    // function loadCached(url) {
+    //   const cache = new Map();
+    //   if (cache.has(url)) return Promise.resolve(cache.get(url))
+    //   return fetch(url).then(r => r.json()).then(r => {
+    //     cache.set(url, r)
+    //     return r
+    //   })
+    // }
+
+    // loadCached('https://jsonplaceholder.typicode.com/todos/1').then(res => {
+    //   console.log(res);
+    // })
+
+    let promise1 = Promise.reject(new Error("Promise Failed!"));
+    setTimeout(() => promise1.catch(err => alert('caught')), 1000);
+
+
+
+    // Error: Promise Failed!
+    window.addEventListener('unhandledrejection', event => alert(event.reason));
+
+
   </script>
 </body>
 

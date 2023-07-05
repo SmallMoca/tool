@@ -2,7 +2,8 @@
 import { debounce } from 'lodash-es';
 import { msg } from 'virtual:my-module';
 import ClockIn from 'comps/clock-in/clock-in';
-// const
+import { cache } from 'react';
+console.log(cache, 'cache');
 
 console.log(msg);
 
