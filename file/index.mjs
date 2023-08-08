@@ -84,7 +84,6 @@ function moveFilesByExtension(sourceFolder, targetFolder, fileExtension) {
     files.forEach((file) => {
       const sourcePath = path.join(sourceFolder, file);
 
-      console.log(file.endsWith(fileExtension));
       // 检查文件是否以指定的文件名后缀结尾
       if (file.endsWith(fileExtension)) {
         const targetPath = path.join(targetFolder, file);
@@ -166,7 +165,11 @@ setTimeout(() => {
       lineData.forEach((v, index) => {
         // 指定要写入的合并单元格
         const mergedCell = readCells[index];
-        worksheet[mergedCell.split(':')[0]] = { v };
+        if (index === 3) {
+          worksheet[mergedCell] = { v: Number(v), t: 'n' };
+        } else {
+          worksheet[mergedCell.split(':')[0]] = { v };
+        }
       });
     });
 
