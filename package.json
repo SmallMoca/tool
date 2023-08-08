@@ -28,6 +28,11 @@
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
     "magic-string": "^0.30.0",
+    "pdf-extract": "^1.0.11",
+    "pdf-parse": "^1.1.1",
+    "pdf2json": "^3.0.4",
+    "pdfjs-dist": "^3.9.179",
+    "pdfreader": "^3.0.0",
     "pixi.js": "^7.2.4",
     "pug": "^3.0.2",
     "react": "^18.2.0",
@@ -37,7 +42,8 @@
     "tapable": "^2.2.1",
     "tsd": "^0.28.0",
     "underscore": "^1.13.6",
-    "webpack": "^5.75.0"
+    "webpack": "^5.75.0",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",
